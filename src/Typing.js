@@ -17,7 +17,7 @@ const Home = () => (
 )
 
 const Done = () => (
-  <div>
+  <div className="done">
     <Link to="/">I'm done.</Link>
   </div>
 )
