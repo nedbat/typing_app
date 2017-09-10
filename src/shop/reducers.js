@@ -1,7 +1,7 @@
 var initial_state = [
-  {text: "Ice Cream"},
-  {text: "Sandwiches"},
-  {text: "Soda"},
+  {id: 1, text: "Ice Cream"},
+  {id: 2, text: "Sandwiches"},
+  {id: 3, text: "Soda"},
 ]
 
 const shoppinglist = (state = initial_state, action) => {
