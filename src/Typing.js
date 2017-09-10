@@ -45,7 +45,10 @@ class Calendar extends React.Component {
       );
     }
     return (
-      <table class="calendar">{cal}</table>
+      <div>
+        <table class="calendar">{cal}</table>
+        <Done/>
+      </div>
     )
   }
 }
