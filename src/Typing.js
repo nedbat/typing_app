@@ -46,7 +46,7 @@ class Calendar extends React.Component {
     }
     return (
       <div>
-        <table class="calendar">{cal}</table>
+        <table className="calendar">{cal}</table>
         <Done/>
       </div>
     )
