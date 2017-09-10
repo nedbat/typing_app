@@ -7,7 +7,7 @@ import { Done } from '../typing/components'
 //-- Item
 
 const Item = ({ onClick, text }) => (
-  <li onClick={onClick}>{text}</li>
+  <li><input onClick={onClick} value={text} /></li>
 )
 
 Item.propTypes = {
@@ -19,9 +19,9 @@ Item.propTypes = {
 //-- ShoppingList
 
 const ShoppingList = ({ items, onItemClick}) => (
-  <div>
+  <div className="shoplist">
     <h1>Shopping list</h1>
-    <ul>
+    <ol>
     {items.map(item =>
       <Item
         key={item.id}
@@ -29,7 +29,8 @@ const ShoppingList = ({ items, onItemClick}) => (
         onClick={() => onItemClick(item.id)}
       />
     )}
-    </ul>
+    <li><input/></li>
+    </ol>
     <Done/>
   </div>
 )

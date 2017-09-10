@@ -26,3 +26,19 @@ table.calendar {
     font-weight: normal;
   }
 }
+
+.shoplist {
+  h1 {
+    font-size: 100%;
+  }
+  ol {
+    list-style: none;
+    padding: 0;
+
+    input {
+      font-size: 200%;
+      margin-bottom: .25em;
+      padding: .05em .2em;
+    }
+  }
+}
