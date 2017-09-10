@@ -1,7 +1,7 @@
 import React from 'react'
 import { Done } from '../typing/components'
 
-export class Calendar extends React.Component {
+class Calendar extends React.Component {
   render() {
     var cal = [];
     let days = ["Sun", "Mon", "Tues", "Weds", "Thur", "Fri", "Sat"].map(day => <th>{day}</th>);
@@ -25,3 +25,5 @@ export class Calendar extends React.Component {
     )
   }
 }
+
+export default Calendar

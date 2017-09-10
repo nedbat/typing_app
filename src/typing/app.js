@@ -4,8 +4,9 @@ import {
   Link,
   Route
 } from 'react-router-dom'
-import { Calendar } from '../cal/components'
-import { ShoppingList } from '../shop/components'
+
+import Calendar from '../cal/components'
+import ShoppingList from '../shop/components'
 
 const Home = () => (
   <div>
