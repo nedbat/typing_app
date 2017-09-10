@@ -30,11 +30,32 @@ const ShoppingList = () => (
   </div>
 )
 
+class Calendar extends React.Component {
+  render() {
+    var cal = [];
+    for (let row = 0; row < 4; row++) {
+      let days = [];
+      for (let day = 0; day < 7; day++) {
+        days.push(
+          <td>What?</td>
+        );
+      }
+      cal.push(
+        <tr>{days}</tr>
+      );
+    }
+    return (
+      <table class="calendar">{cal}</table>
+    )
+  }
+}
+
 const TypingApp = () => (
   <Router>
     <div>
       <Route exact path="/" component={Home}/>
       <Route path="/shopping" component={ShoppingList}/>
+      <Route path="/calendar" component={Calendar}/>
     </div>
   </Router>
 )
