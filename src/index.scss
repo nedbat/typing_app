@@ -12,11 +12,17 @@ body {
 table.calendar {
   border-collapse: collapse;
   width: 100%;
-  td {
+  td, th {
     border: 1px solid #888;
     width: 12%;
+    vertical-align: top;
+  }
+  td {
     height: 4em;
     padding: .5em .5em;
-    vertical-align: top;
+  }
+  th {
+    padding: .2em .5em;
+    font-weight: normal;
   }
 }
