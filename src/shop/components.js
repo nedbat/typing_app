@@ -8,7 +8,7 @@ import { changeItem } from './actions'
 //-- Item
 
 const Item = ({ onChange, text }) => (
-  <li><input onChange={onChange} value={text} /></li>
+  <li><input onChange={ev => onChange(ev.target.value)} value={text} /></li>
 )
 
 Item.propTypes = {
@@ -28,7 +28,7 @@ const ShoppingList = ({ items, onItemChange}) => (
           <Item
             key={item.id}
             {...item}
-            onChange={text => {onItemChange(item.id, text)}}
+            onChange={text => onItemChange(item.id, text)}
           />
         )}
         <li><input/></li>

@@ -14,6 +14,14 @@ const shoppinglist = (state = initial_state, action) => {
           text: action.text,
         }
       ]
+
+    case 'CHANGE_ITEM':
+      return state.map(item =>
+        (item.id === action.id)
+          ? {...item, text: action.text}
+          : item
+      )
+
     default:
       return state
   }
