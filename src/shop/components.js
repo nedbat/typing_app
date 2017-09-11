@@ -16,14 +16,6 @@ Item.propTypes = {
   text: PropTypes.string.isRequired,
 }
 
-const NewItem = ({ onChange }) => (
-  <li><input onChange={ev => onChange(ev.target.value)} value="" /></li>
-)
-
-NewItem.propTypes = {
-  onChange: PropTypes.func.isRequired,
-}
-
 //-- ShoppingList
 
 const ShoppingList = ({ items, onItemChange, onAddItem}) => {
@@ -45,7 +37,7 @@ const ShoppingList = ({ items, onItemChange, onAddItem}) => {
               onChange={text => onItemChange(item.id, text)}
             />
           )}
-          <NewItem key={newid} onChange={text => onAddItem(newid, text)} />
+          <Item key={newid} text="" onChange={text => onAddItem(newid, text)} />
         </ol>
       </form>
       <Done/>
