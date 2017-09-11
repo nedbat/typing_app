@@ -27,8 +27,12 @@ NewItem.propTypes = {
 //-- ShoppingList
 
 const ShoppingList = ({ items, onItemChange, onAddItem}) => {
-  let maxid = Math.max(...items.map(item => item.id))
+  let maxid = 0
+  if (items.length > 0) {
+    maxid = Math.max(...items.map(item => item.id))
+  }
   let newid = maxid + 1
+
   return (
     <div className="shoplist">
       <h1>Shopping list</h1>
