@@ -7,6 +7,9 @@ body {
 
 .done {
   padding-top: 2em;
+  @media print {
+    display: none;
+  }
 }
 
 table.calendar {
@@ -39,6 +42,12 @@ table.calendar {
       font-size: 200%;
       margin-bottom: .25em;
       padding: .05em .2em;
+
+      @media print {
+        border: none;
+        font-size: 100%;
+        padding-left: 0;
+      }
     }
   }
 }

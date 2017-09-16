@@ -8,7 +8,7 @@ import { addItem, changeItem } from './actions'
 //-- Item
 
 const Item = ({ onChange, id, text }) => (
-  <li>{id}: <input onChange={ev => onChange(ev.target.value)} value={text} /></li>
+  <li><input onChange={ev => onChange(ev.target.value)} value={text} /></li>
 )
 
 Item.propTypes = {
