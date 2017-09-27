@@ -37,8 +37,9 @@ const ShoppingList = ({ items, onItemChange, onAddItem}) => {
               {...item}
               onChange={text => onItemChange(item.id, text)}
             />
-          )}
-          <Item key={newid} id={newid} text="" onChange={text => onAddItem(newid, text)} />
+          ).concat([
+            <Item key={newid} id={newid} text="" onChange={text => onAddItem(newid, text)} />
+          ])}
         </ol>
       </form>
       <Done/>

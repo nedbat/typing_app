@@ -1,5 +1,6 @@
 const shoppinglist = (state = [], action) => {
   let newstate = []
+
   let removeEmpties = state => {
     // Remove empty items, but never the one we are working on atm.
     return state.filter(item => item.id === action.id || item.text.length > 0)
