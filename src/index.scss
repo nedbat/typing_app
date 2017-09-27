@@ -43,6 +43,10 @@ table.calendar {
       margin-bottom: .25em;
       padding: .05em .2em;
 
+      &:focus {
+        border: 4px solid rgba(81, 203, 238, 1);
+      }
+
       @media print {
         border: none;
         font-size: 100%;
