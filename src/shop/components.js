@@ -7,13 +7,12 @@ import { addItem, changeItem } from './actions'
 
 //-- Item
 
-const Item = ({ onChange, id, text }) => (
+const Item = ({ onChange, text }) => (
   <li><input onChange={ev => onChange(ev.target.value)} value={text} /></li>
 )
 
 Item.propTypes = {
   onChange: PropTypes.func.isRequired,
-  id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
 }
 
@@ -38,7 +37,7 @@ const ShoppingList = ({ items, onItemChange, onAddItem}) => {
               onChange={text => onItemChange(item.id, text)}
             />
           ).concat([
-            <Item key={newid} id={newid} text="" onChange={text => onAddItem(newid, text)} />
+            <Item key={newid} text="" onChange={text => onAddItem(newid, text)} />
           ])}
         </ol>
       </form>
