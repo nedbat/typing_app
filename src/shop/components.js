@@ -18,7 +18,7 @@ Item.propTypes = {
 
 //-- ShoppingList
 
-const ShoppingList = ({ items, onItemChange, onAddItem}) => {
+const ShoppingList = ({ items, changeItem, addItem}) => {
   let maxid = 0
   if (items.length > 0) {
     maxid = Math.max(...items.map(item => item.id))
@@ -34,10 +34,10 @@ const ShoppingList = ({ items, onItemChange, onAddItem}) => {
             <Item
               key={item.id}
               {...item}
-              onChange={text => onItemChange(item.id, text)}
+              onChange={text => changeItem(item.id, text)}
             />
           ).concat([
-            <Item key={newid} text="" onChange={text => onAddItem(newid, text)} />
+            <Item key={newid} text="" onChange={text => addItem(newid, text)} />
           ])}
         </ol>
       </form>
@@ -51,24 +51,22 @@ ShoppingList.propTypes = {
     id: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  onItemChange: PropTypes.func.isRequired,
-  onAddItem: PropTypes.func.isRequired,
+  changeItem: PropTypes.func.isRequired,
+  addItem: PropTypes.func.isRequired,
 }
 
 //-- ShoppingListContainer
 
-const mapStateToProps = (state) => ({
-  items: state.shoppinglist,
-})
-
-const mapDispatchToProps = {
-  onItemChange: changeItem,
-  onAddItem: addItem,
-}
-
 const ShoppingListContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  // mapStateToProps
+  (state) => ({
+    items: state.shoppinglist,
+  }),
+  // mapDispatchToProps
+  {
+    changeItem,
+    addItem,
+  }
 )(ShoppingList)
 
 export default ShoppingListContainer
