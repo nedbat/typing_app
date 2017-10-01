@@ -1,3 +1,7 @@
+import {
+  ADD_ITEM, CHANGE_ITEM,
+} from './actions'
+
 const shoppinglist = (state = [], action) => {
   let newstate = []
 
@@ -7,7 +11,7 @@ const shoppinglist = (state = [], action) => {
   }
 
   switch (action.type) {
-    case 'ADD_ITEM':
+    case ADD_ITEM:
       newstate = [
         ...state,
         {
@@ -17,7 +21,7 @@ const shoppinglist = (state = [], action) => {
       ]
       return removeEmpties(newstate)
 
-    case 'CHANGE_ITEM':
+    case CHANGE_ITEM:
       newstate = state.map(item =>
         (item.id === action.id)
           ? {...item, text: action.text}
