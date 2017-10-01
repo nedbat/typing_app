@@ -23,7 +23,7 @@ class ShoppingList extends Component {
     this.props.uiLoadItems();
   }
 
-  render = () => {
+  render() {
     let maxid = 0
     if (this.props.items.length > 0) {
       maxid = Math.max(...this.props.items.map(item => item.id))
@@ -39,10 +39,10 @@ class ShoppingList extends Component {
               <Item
                 key={item.id}
                 {...item}
-                onChange={text => uiChangeItem(item.id, text)}
+                onChange={text => this.props.uiChangeItem(item.id, text)}
               />
             ).concat([
-              <Item key={newid} text="" onChange={text => uiAddItem(newid, text)} />
+              <Item key={newid} text="" onChange={text => this.props.uiAddItem(newid, text)} />
             ])}
           </ol>
         </form>

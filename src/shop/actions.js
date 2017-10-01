@@ -34,7 +34,7 @@ export const uiLoadItems = () => (dispatch) => {
     let items = []
     let val = snapshot.val()
     for (const k of Object.keys(val)) {
-      items.push({id: k, text: val[k]})
+      items.push({id: parseInt(k, 10), text: val[k]})
     }
     dispatch(initItems(items))
   })
