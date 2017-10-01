@@ -12,10 +12,7 @@ const shoppinglist = (state = [], action) => {
 
   switch (action.type) {
     case INIT_ITEMS:
-      for (const k of Object.keys(action.items)) {
-        newstate.push({id: k, text: action.items[k]})
-      }
-      return newstate
+      return action.items
 
     case ADD_ITEM:
       newstate = [

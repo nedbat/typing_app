@@ -29,7 +29,15 @@ export const UI_ADD_ITEM = 'UI_ADD_ITEM'
 export const UI_CHANGE_ITEM = 'UI_CHANGE_ITEM'
 
 export const uiLoadItems = () => (dispatch) => {
-  readItems().then((snapshot) => { dispatch(initItems(snapshot.val())); })
+  readItems().then((snapshot) => {
+    // Convert from {'1': 'text', '2': 'text'} to [{id:1, text:text}, ...]
+    let items = []
+    let val = snapshot.val()
+    for (const k of Object.keys(val)) {
+      items.push({id: k, text: val[k]})
+    }
+    dispatch(initItems(items))
+  })
 }
 
 export const uiAddItem = (id, text) => (dispatch) => {
