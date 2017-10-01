@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { Done } from '../typing/components'
-import { addItem, changeItem } from './actions'
+import { uiAddItem, uiChangeItem } from './actions'
 
 //-- Item
 
@@ -18,7 +18,7 @@ Item.propTypes = {
 
 //-- ShoppingList
 
-const ShoppingList = ({ items, changeItem, addItem}) => {
+const ShoppingList = ({ items, uiChangeItem, uiAddItem}) => {
   let maxid = 0
   if (items.length > 0) {
     maxid = Math.max(...items.map(item => item.id))
@@ -34,10 +34,10 @@ const ShoppingList = ({ items, changeItem, addItem}) => {
             <Item
               key={item.id}
               {...item}
-              onChange={text => changeItem(item.id, text)}
+              onChange={text => uiChangeItem(item.id, text)}
             />
           ).concat([
-            <Item key={newid} text="" onChange={text => addItem(newid, text)} />
+            <Item key={newid} text="" onChange={text => uiAddItem(newid, text)} />
           ])}
         </ol>
       </form>
@@ -51,8 +51,8 @@ ShoppingList.propTypes = {
     id: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
   }).isRequired).isRequired,
-  changeItem: PropTypes.func.isRequired,
-  addItem: PropTypes.func.isRequired,
+  uiChangeItem: PropTypes.func.isRequired,
+  uiAddItem: PropTypes.func.isRequired,
 }
 
 //-- ShoppingListContainer
@@ -64,8 +64,8 @@ const ShoppingListContainer = connect(
   }),
   // mapDispatchToProps
   {
-    changeItem,
-    addItem,
+    uiChangeItem,
+    uiAddItem,
   }
 )(ShoppingList)
 
