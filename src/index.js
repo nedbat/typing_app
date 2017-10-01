@@ -8,7 +8,6 @@ import './index.css'
 import App from './typing/app'
 import typing_reducer from './typing/reducers'
 import registerServiceWorker from './registerServiceWorker'
-import { firebaseDb } from './firebase'
 
 const store = createStore(
   typing_reducer,

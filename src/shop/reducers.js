@@ -1,5 +1,5 @@
 import {
-  ADD_ITEM, CHANGE_ITEM,
+  INIT_ITEMS, ADD_ITEM, CHANGE_ITEM,
 } from './actions'
 
 const shoppinglist = (state = [], action) => {
@@ -11,6 +11,12 @@ const shoppinglist = (state = [], action) => {
   }
 
   switch (action.type) {
+    case INIT_ITEMS:
+      for (const k of Object.keys(action.items)) {
+        newstate.push({id: k, text: action.items[k]})
+      }
+      return newstate
+
     case ADD_ITEM:
       newstate = [
         ...state,

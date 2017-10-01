@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { Done } from '../typing/components'
-import { uiAddItem, uiChangeItem } from './actions'
+import { uiLoadItems, uiAddItem, uiChangeItem } from './actions'
 
 //-- Item
 
@@ -18,32 +18,38 @@ Item.propTypes = {
 
 //-- ShoppingList
 
-const ShoppingList = ({ items, uiChangeItem, uiAddItem}) => {
-  let maxid = 0
-  if (items.length > 0) {
-    maxid = Math.max(...items.map(item => item.id))
+class ShoppingList extends Component {
+  componentDidMount() {
+    this.props.uiLoadItems();
   }
-  let newid = maxid + 1
 
-  return (
-    <div className="shoplist">
-      <h1>Shopping list</h1>
-      <form>
-        <ol>
-          {items.map(item =>
-            <Item
-              key={item.id}
-              {...item}
-              onChange={text => uiChangeItem(item.id, text)}
-            />
-          ).concat([
-            <Item key={newid} text="" onChange={text => uiAddItem(newid, text)} />
-          ])}
-        </ol>
-      </form>
-      <Done/>
-    </div>
-  )
+  render = () => {
+    let maxid = 0
+    if (this.props.items.length > 0) {
+      maxid = Math.max(...this.props.items.map(item => item.id))
+    }
+    let newid = maxid + 1
+
+    return (
+      <div className="shoplist">
+        <h1>Shopping list</h1>
+        <form>
+          <ol>
+            {this.props.items.map(item =>
+              <Item
+                key={item.id}
+                {...item}
+                onChange={text => uiChangeItem(item.id, text)}
+              />
+            ).concat([
+              <Item key={newid} text="" onChange={text => uiAddItem(newid, text)} />
+            ])}
+          </ol>
+        </form>
+        <Done/>
+      </div>
+    )
+  }
 }
 
 ShoppingList.propTypes = {
@@ -53,6 +59,7 @@ ShoppingList.propTypes = {
   }).isRequired).isRequired,
   uiChangeItem: PropTypes.func.isRequired,
   uiAddItem: PropTypes.func.isRequired,
+  uiLoadItems: PropTypes.func.isRequired,
 }
 
 //-- ShoppingListContainer
@@ -66,6 +73,7 @@ const ShoppingListContainer = connect(
   {
     uiChangeItem,
     uiAddItem,
+    uiLoadItems,
   }
 )(ShoppingList)
 
