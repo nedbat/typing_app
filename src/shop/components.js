@@ -8,7 +8,7 @@ import { uiLoadItems, uiAddItem, uiChangeItem } from './actions'
 //-- Item
 
 const Item = ({ onChange, text }) => (
-  <li><input onChange={ev => onChange(ev.target.value)} value={text} /></li>
+  <li><input onBlur={ev => onChange(ev.target.value)} defaultValue={text} /></li>
 )
 
 Item.propTypes = {
@@ -20,7 +20,7 @@ Item.propTypes = {
 
 class ShoppingList extends Component {
   componentDidMount() {
-    this.props.uiLoadItems();
+    this.props.uiLoadItems()
   }
 
   render() {
