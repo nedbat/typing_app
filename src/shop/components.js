@@ -20,7 +20,7 @@ Item.propTypes = {
 
 class ShoppingList extends Component {
   componentDidMount() {
-    this.props.uiLoadItems()
+    this.props.uiLoadItems(this.props.dataWhere)
   }
 
   render() {
@@ -39,10 +39,10 @@ class ShoppingList extends Component {
               <Item
                 key={item.id}
                 {...item}
-                onChange={text => this.props.uiChangeItem(item.id, text)}
+                onChange={text => this.props.uiChangeItem(this.props.dataWhere, item.id, text)}
               />
             ).concat([
-              <Item key={newid} text="" onChange={text => this.props.uiAddItem(newid, text)} />
+              <Item key={newid} text="" onChange={text => this.props.uiAddItem(this.props.dataWhere, newid, text)} />
             ])}
           </ol>
         </form>
@@ -53,6 +53,10 @@ class ShoppingList extends Component {
 }
 
 ShoppingList.propTypes = {
+  dataWhere: PropTypes.shape({
+    dbroot: PropTypes.string.isRequired,
+    datakey: PropTypes.string.isRequired,
+  }).isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     text: PropTypes.string.isRequired,
@@ -62,12 +66,19 @@ ShoppingList.propTypes = {
   uiLoadItems: PropTypes.func.isRequired,
 }
 
+ShoppingList.defaultProps = {
+  dataWhere: {
+    dbroot: 'nat',
+    datakey: 'shop',
+  },
+}
+
 //-- ShoppingListContainer
 
 const ShoppingListContainer = connect(
   // mapStateToProps
   (state) => ({
-    items: state.shoppinglist,
+    items: state.shop,
   }),
   // mapDispatchToProps
   {

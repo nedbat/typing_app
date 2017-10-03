@@ -4,8 +4,8 @@ import shoppinglist from '../shop/reducers'
 import calendar from '../cal/reducers'
 
 const typing = combineReducers({
-  shoppinglist,
-  calendar
+  shop: shoppinglist,
+  cal: calendar,
 })
 
 export default typing

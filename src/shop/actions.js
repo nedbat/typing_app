@@ -28,32 +28,49 @@ export const changeItem = (id, text) => ({
 export const UI_ADD_ITEM = 'UI_ADD_ITEM'
 export const UI_CHANGE_ITEM = 'UI_CHANGE_ITEM'
 
-export const uiLoadItems = () => (dispatch) => {
-  readItems().then((snapshot) => {
-    // Convert from {'1': 'text', '2': 'text'} to [{id:1, text:text}, ...]
-    let items = []
-    let val = snapshot.val()
-    for (const k of Object.keys(val)) {
-      items.push({id: parseInt(k, 10), text: val[k]})
+export const uiLoadItems = (dataWhere) => (dispatch) => {
+  let dbkey = `${dataWhere.dbroot}/${dataWhere.datakey}`
+  readItems(dbkey).then((snapshot) => {
+    // Convert from ['text', 'text', ...] to [{id:1, text:text}, ...]
+    let array = snapshot.val()
+    if (!array) {
+      array = []
     }
+    let items = []
+    for (let i = 0; i < array.length; i++) {
+      items.push({id: i, text: array[i]})
+    }
+    console.log("uiLoadItems:", items)
     dispatch(initItems(items))
   })
 }
 
-export const uiAddItem = (id, text) => (dispatch) => {
-  writeItem(id, text).then(() => dispatch(addItem(id, text)))
+export const uiAddItem = (dataWhere, id, text) => (dispatch, getState) => {
+  dispatch(addItem(id, text))
+  updateDatabase(dispatch, getState, dataWhere)
 }
 
-export const uiChangeItem = (id, text) => (dispatch) => {
-  writeItem(id, text).then(() => dispatch(changeItem(id, text)))
+export const uiChangeItem = (dataWhere, id, text) => (dispatch, getState) => {
+  dispatch(changeItem(id, text))
+  updateDatabase(dispatch, getState, dataWhere)
+}
+
+const updateDatabase = (dispatch, getState, dataWhere) => {
+  let items = getState()[dataWhere.datakey]
+  let array = []
+  for (let i = 0; i < items.length; i++) {
+    array.push(items[i].text)
+  }
+  let dbkey = `${dataWhere.dbroot}/${dataWhere.datakey}`
+  return writeItems(dbkey, array)
 }
 
 // Database actions
 
-export const readItems = () => {
-  return firebaseDb.ref('nat/shop').once('value')
+export const readItems = (dbkey) => {
+  return firebaseDb.ref(dbkey).once('value')
 }
 
-export const writeItem = (id, text) => {
-  return firebaseDb.ref(`nat/shop/${id}`).set(text)
+export const writeItems = (dbkey, items) => {
+  return firebaseDb.ref(dbkey).set(items)
 }
