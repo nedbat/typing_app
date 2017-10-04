@@ -13,6 +13,16 @@ const Item = ({ onChange, onBlur, text }) => (
       value={text}
       onChange={ev => onChange(ev.target.value)}
       onBlur={ev => onBlur(ev.target.value)}
+      onKeyPress={
+        ev => {
+          if (ev.nativeEvent.keyCode === 13) {
+            let nextLi = ev.target.parentElement.nextSibling
+            if (nextLi) {
+              nextLi.firstChild.focus()
+            }
+          }
+        }
+      }
     />
   </li>
 )
