@@ -23,6 +23,25 @@ const Item = ({ onChange, onBlur, text }) => (
           }
         }
       }
+      onKeyDown={
+        ev => {
+          switch (ev.nativeEvent.keyCode) {
+            case 38:  // UP
+              let prevLi = ev.target.parentElement.previousSibling
+              if (prevLi) {
+                prevLi.firstChild.focus()
+              }
+              break
+
+            case 40:  // DOWN
+              let nextLi = ev.target.parentElement.nextSibling
+              if (nextLi) {
+                nextLi.firstChild.focus()
+              }
+              break
+          }
+        }
+      }
     />
   </li>
 )
