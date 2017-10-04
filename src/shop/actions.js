@@ -46,7 +46,6 @@ export const uiLoadItems = (dataWhere) => (dispatch) => {
     for (let i = 0; i < array.length; i++) {
       items.push({id: i, text: array[i]})
     }
-    console.log("uiLoadItems:", items)
     dispatch(initItems(items))
   })
 }
