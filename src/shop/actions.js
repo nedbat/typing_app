@@ -5,6 +5,7 @@ import { firebaseDb } from '../firebase/firebase'
 export const INIT_ITEMS = 'INIT_ITEMS'
 export const ADD_ITEM = 'ADD_ITEM'
 export const CHANGE_ITEM = 'CHANGE_ITEM'
+export const REMOVE_ITEM = 'REMOVE_ITEM'
 
 export const initItems = (items) => ({
   type: INIT_ITEMS,
@@ -21,6 +22,11 @@ export const changeItem = (id, text) => ({
   type: CHANGE_ITEM,
   id,
   text,
+})
+
+export const removeItem = (id) => ({
+  type: REMOVE_ITEM,
+  id,
 })
 
 // UI actions
@@ -47,11 +53,16 @@ export const uiLoadItems = (dataWhere) => (dispatch) => {
 
 export const uiAddItem = (dataWhere, id, text) => (dispatch, getState) => {
   dispatch(addItem(id, text))
-  updateDatabase(dispatch, getState, dataWhere)
 }
 
 export const uiChangeItem = (dataWhere, id, text) => (dispatch, getState) => {
   dispatch(changeItem(id, text))
+}
+
+export const uiBlurItem = (dataWhere, id, text) => (dispatch, getState) => {
+  if (text === "") {
+    dispatch(removeItem(id))
+  }
   updateDatabase(dispatch, getState, dataWhere)
 }
 

@@ -3,16 +3,23 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { Done } from '../typing/components'
-import { uiLoadItems, uiAddItem, uiChangeItem } from './actions'
+import { uiLoadItems, uiAddItem, uiChangeItem, uiBlurItem } from './actions'
 
 //-- Item
 
-const Item = ({ onChange, text }) => (
-  <li><input onBlur={ev => onChange(ev.target.value)} defaultValue={text} /></li>
+const Item = ({ onChange, onBlur, text }) => (
+  <li>
+    <input
+      value={text}
+      onChange={ev => onChange(ev.target.value)}
+      onBlur={ev => onBlur(ev.target.value)}
+    />
+  </li>
 )
 
 Item.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
 }
 
@@ -40,9 +47,15 @@ class ShoppingList extends Component {
                 key={item.id}
                 {...item}
                 onChange={text => this.props.uiChangeItem(this.props.dataWhere, item.id, text)}
+                onBlur={text => this.props.uiBlurItem(this.props.dataWhere, item.id, text)}
               />
             ).concat([
-              <Item key={newid} text="" onChange={text => this.props.uiAddItem(this.props.dataWhere, newid, text)} />
+              <Item
+                key={newid}
+                text=""
+                onChange={text => this.props.uiAddItem(this.props.dataWhere, newid, text)}
+                onBlur={text => this.props.uiBlurItem(this.props.dataWhere, newid, text)}
+              />
             ])}
           </ol>
         </form>
@@ -63,6 +76,7 @@ ShoppingList.propTypes = {
   }).isRequired).isRequired,
   uiChangeItem: PropTypes.func.isRequired,
   uiAddItem: PropTypes.func.isRequired,
+  uiBlurItem: PropTypes.func.isRequired,
   uiLoadItems: PropTypes.func.isRequired,
 }
 
@@ -84,6 +98,7 @@ const ShoppingListContainer = connect(
   {
     uiChangeItem,
     uiAddItem,
+    uiBlurItem,
     uiLoadItems,
   }
 )(ShoppingList)

@@ -1,36 +1,30 @@
 import {
-  INIT_ITEMS, ADD_ITEM, CHANGE_ITEM,
+  INIT_ITEMS, ADD_ITEM, CHANGE_ITEM, REMOVE_ITEM,
 } from './actions'
 
 const shoppinglist = (state = [], action) => {
-  let newstate = []
-
-  let removeEmpties = state => {
-    // Remove empty items, but never the one we are working on atm.
-    return state.filter(item => item.id === action.id || item.text.length > 0)
-  }
-
   switch (action.type) {
     case INIT_ITEMS:
       return action.items
 
     case ADD_ITEM:
-      newstate = [
+      return [
         ...state,
         {
           id: action.id,
           text: action.text,
         }
       ]
-      return removeEmpties(newstate)
 
     case CHANGE_ITEM:
-      newstate = state.map(item =>
+      return state.map(item =>
         (item.id === action.id)
           ? {...item, text: action.text}
           : item
       )
-      return removeEmpties(newstate)
+
+    case REMOVE_ITEM:
+      return state.filter(item => item.id !== action.id)
 
     default:
       return state
